@@ -196,7 +196,7 @@ function onNextRace() {
 function resetRacerPositions() {
   const icons = trackEl.querySelectorAll(".racer-icon");
   icons.forEach(icon => {
-    icon.style.transform = "translateX(0%)";
+    icon.style.left = "8%";          // instead of transform
   });
 }
 
@@ -232,11 +232,12 @@ function getWeightedFinishOrder() {
 }
 
 function startRaceAnimation(finishOrder, onComplete) {
-  // Precompute finish times (winner fastest)
-  const baseTime = 5500; // ms
-  const gap = 400;       // ms between positions
+  const baseTime = 5500;
+  const gap = 400;
 
-  // Prepare racer states
+  const startPercent = 8;   // matches CSS
+  const endPercent = 88;    // just before finish line
+
   racerStates = finishOrder.map((entry, index) => {
     const lane = trackEl.querySelector(`.lane[data-racer-id="${entry.id}"]`);
     const icon = lane.querySelector(".racer-icon");
@@ -257,12 +258,11 @@ function startRaceAnimation(finishOrder, onComplete) {
 
     racerStates.forEach(state => {
       const t = Math.min(elapsed / state.finishTime, 1);
-      // Ease-out for nicer motion
       const eased = 1 - Math.pow(1 - t, 3);
       state.progress = eased;
 
-      const percent = eased * 74; // up to just before finish line
-      state.icon.style.transform = `translateX(${percent}%)`;
+      const percent = startPercent + eased * (endPercent - startPercent);
+      state.icon.style.left = `${percent}%`;
 
       if (t < 1) {
         allFinished = false;
@@ -282,6 +282,7 @@ function startRaceAnimation(finishOrder, onComplete) {
 
   requestAnimationFrame(step);
 }
+
 
 function handlePayout(winnerId, finishOrder) {
   const winner = RACERS.find(r => r.id === winnerId);
