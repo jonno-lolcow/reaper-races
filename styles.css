@@ -1,0 +1,240 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at top, #222 0, #050505 55%);
+  color: #f2f2f2;
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.app-header h1 {
+  font-size: 2rem;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.app-main {
+  display: grid;
+  grid-template-columns: 280px 1fr 260px;
+  gap: 12px;
+}
+
+.panel {
+  background: rgba(20, 20, 20, 0.95);
+  border-radius: 10px;
+  padding: 12px;
+  border: 1px solid #333;
+}
+
+.panel h2 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.panel-left h3 {
+  font-size: 0.95rem;
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+}
+
+/* Odds list */
+.odds-list {
+  list-style: none;
+  margin-bottom: 8px;
+  max-height: 160px;
+  overflow-y: auto;
+  font-size: 0.9rem;
+}
+
+.odds-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 0;
+}
+
+/* Inputs & buttons */
+label {
+  display: block;
+  font-size: 0.85rem;
+  margin: 6px 0 2px;
+}
+
+input[type="number"],
+select {
+  width: 100%;
+  padding: 4px 6px;
+  margin-bottom: 6px;
+  border-radius: 6px;
+  border: 1px solid #555;
+  background: #111;
+  color: #f2f2f2;
+}
+
+button {
+  width: 100%;
+  padding: 6px;
+  margin-top: 4px;
+  border-radius: 999px;
+  border: none;
+  background: #6a4df5;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, opacity 0.1s ease;
+}
+
+button:hover:enabled {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* Race container */
+.race-container {
+  background: rgba(15, 15, 15, 0.95);
+  border-radius: 10px;
+  padding: 12px;
+  border: 1px solid #333;
+}
+
+.track {
+  position: relative;
+  margin-top: 8px;
+  padding: 12px 8px;
+  background: #101010;
+  border-radius: 10px;
+  border: 1px solid #444;
+  overflow: hidden;
+}
+
+.lane {
+  position: relative;
+  height: 40px;
+  margin-bottom: 8px;
+  border-top: 1px dashed #444;
+  border-bottom: 1px dashed #444;
+  display: flex;
+  align-items: center;
+}
+
+.lane:last-child {
+  margin-bottom: 0;
+}
+
+.lane-label {
+  position: absolute;
+  left: 4px;
+  font-size: 0.75rem;
+  color: #aaa;
+}
+
+.finish-line {
+  position: absolute;
+  right: 6%;
+  top: 3px;
+  bottom: 3px;
+  width: 4px;
+  background-image: linear-gradient(
+    to bottom,
+    #eee 0,
+    #eee 8px,
+    #444 8px,
+    #444 16px
+  );
+  background-size: 100% 16px;
+}
+
+.racer-icon {
+  position: absolute;
+  left: 12%;
+  font-size: 1.2rem;
+  transition: transform 0.05s linear;
+}
+
+/* Race status text */
+.race-status {
+  margin-top: 8px;
+  min-height: 18px;
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+/* Current bet info */
+.current-bet-info {
+  margin-top: 6px;
+  min-height: 32px;
+  font-size: 0.85rem;
+  color: #ddd;
+}
+
+/* Log */
+.log {
+  font-size: 0.8rem;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.log-entry {
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #333;
+}
+
+.log-entry strong {
+  color: #f6d365;
+}
+
+.payout-win {
+  color: #9cff9c;
+}
+
+.payout-loss {
+  color: #ff9c9c;
+}
+
+/* Right panel tweaks */
+.panel-right h2 {
+  margin-bottom: 6px;
+}
+
+@media (max-width: 900px) {
+  .app-main {
+    grid-template-columns: 1fr;
+  }
+
+  .panel-right {
+    order: 3;
+  }
+}
