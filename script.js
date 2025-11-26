@@ -145,7 +145,6 @@ function onPlaceBet() {
 function onStartRace() {
   if (!currentBet || raceRunning) return;
 
-  // Lock controls
   raceRunning = true;
   placeBetBtn.disabled = true;
   startRaceBtn.disabled = true;
@@ -155,15 +154,11 @@ function onStartRace() {
 
   raceStatusEl.textContent = "Race in progress...";
 
-  // Reset positions
   resetRacerPositions();
 
-  // Decide finish order based on odds
   const finishOrder = getWeightedFinishOrder();
 
-  // Animate race
   startRaceAnimation(finishOrder, winnerId => {
-    // Race finished callback
     raceRunning = false;
     handlePayout(winnerId, finishOrder);
     nextRaceBtn.disabled = false;
@@ -178,7 +173,6 @@ function onNextRace() {
   raceNumber += 1;
   updateRaceNumberDisplay();
 
-  // Re-enable controls if still have money
   racerSelectEl.disabled = false;
   betAmountEl.disabled = false;
   placeBetBtn.disabled = bankroll <= 0;
@@ -196,12 +190,11 @@ function onNextRace() {
 function resetRacerPositions() {
   const icons = trackEl.querySelectorAll(".racer-icon");
   icons.forEach(icon => {
-    icon.style.left = "8%";          // instead of transform
+    icon.style.left = "8%";            // starting point
   });
 }
 
 function getWeightedFinishOrder() {
-  // Create a working list of racers with weights = 1 / odds
   const remaining = RACERS.map(r => ({
     id: r.id,
     name: r.name,
@@ -228,14 +221,14 @@ function getWeightedFinishOrder() {
     order.push(chosen);
   }
 
-  return order; // first element is winner
+  return order;
 }
 
 function startRaceAnimation(finishOrder, onComplete) {
-  const baseTime = 5500;
-  const gap = 400;
+  const baseTime = 5500; // ms winner
+  const gap = 400;       // ms extra per position
 
-  const startPercent = 8;   // matches CSS
+  const startPercent = 8;   // must match CSS
   const endPercent = 88;    // just before finish line
 
   racerStates = finishOrder.map((entry, index) => {
@@ -258,7 +251,7 @@ function startRaceAnimation(finishOrder, onComplete) {
 
     racerStates.forEach(state => {
       const t = Math.min(elapsed / state.finishTime, 1);
-      const eased = 1 - Math.pow(1 - t, 3);
+      const eased = 1 - Math.pow(1 - t, 3); // ease-out
       state.progress = eased;
 
       const percent = startPercent + eased * (endPercent - startPercent);
@@ -282,7 +275,6 @@ function startRaceAnimation(finishOrder, onComplete) {
 
   requestAnimationFrame(step);
 }
-
 
 function handlePayout(winnerId, finishOrder) {
   const winner = RACERS.find(r => r.id === winnerId);
@@ -316,7 +308,6 @@ function handlePayout(winnerId, finishOrder) {
   updateBankrollDisplay();
   addLogEntry(winner, finishOrder, payoutText, delta);
 
-  // Allow new bets if bankroll remains
   placeBetBtn.disabled = bankroll <= 0;
 }
 
