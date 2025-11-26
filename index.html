@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reaper Races (MVP)</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <h1>💀 Reaper Races</h1>
+      <p class="subtitle">Bet on your favourite Reaper and watch them race!</p>
+    </header>
+
+    <main class="app-main">
+      <!-- LEFT PANEL: Bankroll & betting -->
+      <section class="panel panel-left">
+        <h2>Bankroll & Bets</h2>
+
+        <div class="stat-row">
+          <span>Race #</span>
+          <span id="raceNumber">1</span>
+        </div>
+
+        <div class="stat-row">
+          <span>Bankroll</span>
+          <span id="bankroll">100</span>
+        </div>
+
+        <h3>Racers & Odds</h3>
+        <ul id="oddsList" class="odds-list"></ul>
+
+        <h3>Place Your Bet</h3>
+        <label for="racerSelect">Racer</label>
+        <select id="racerSelect"></select>
+
+        <label for="betAmount">Bet Amount</label>
+        <input id="betAmount" type="number" min="1" step="1" value="10">
+
+        <button id="placeBetBtn">Place Bet</button>
+
+        <div id="currentBetInfo" class="current-bet-info"></div>
+
+        <button id="startRaceBtn" disabled>Start Race</button>
+        <button id="nextRaceBtn" disabled>Next Race</button>
+      </section>
+
+      <!-- CENTER: Race track -->
+      <section class="race-container">
+        <h2>Race Track</h2>
+        <div id="track" class="track"></div>
+        <div id="raceStatus" class="race-status"></div>
+      </section>
+
+      <!-- RIGHT PANEL: Log -->
+      <section class="panel panel-right">
+        <h2>Race Log</h2>
+        <div id="log" class="log"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
